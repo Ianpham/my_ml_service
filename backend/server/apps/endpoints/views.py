@@ -12,7 +12,7 @@ from django.db import transaction
 class EndpointViewSet(
     mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet
 ):
-    serializer_class = Endpoint
+    serializer_class = EndpointSerializer
     queryset = Endpoint.objects.all()
 
 class MLAlgorithmViewSet(

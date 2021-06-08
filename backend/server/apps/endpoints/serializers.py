@@ -15,7 +15,7 @@ class MLAlgorithmSerializer(serializers.ModelSerializer):
 
     current_status = serializers.SerializerMethodField(read_only = True)
 
-    def get_current_status(self,mlalgorithm):
+    def get_current_status(self, mlalgorithm):
         return MLAlgorithmStatus.objects.filter(parent_mlalgorithm = mlalgorithm).latest('created_at').status
 
     class Meta:
@@ -23,6 +23,8 @@ class MLAlgorithmSerializer(serializers.ModelSerializer):
         read_only_fields = ("id", "name", "description", "code",
                             "version", "owner", "created_at",
                             "parent_endpoint", "current_status")
+        fields = read_only_fields    
+        " chú ý về phần fields cần có nếu không rest sẽ không đọc được"             
 
 class MLAlgorithmStatusSerializer(serializers.ModelSerializer):
     class Meta:
@@ -30,7 +32,7 @@ class MLAlgorithmStatusSerializer(serializers.ModelSerializer):
         read_only_fields = ("id", "active")
         fields = ("id", "active", "status", "created_by", "created_at",
                             "parent_mlalgorithm")
-                            
+
 class MLRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = MLRequest
