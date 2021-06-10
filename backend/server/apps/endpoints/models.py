@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
 
 # Create your models here.
 
@@ -52,7 +53,7 @@ class MLAlgorithmStatus(models.Model):
     active = models.BooleanField()
     created_by = models.CharField(max_length=128)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
-    parent_mlalgorithm = models.ForeignKey(MLAlgorithm,on_delete=models.CASCADE)
+    parent_mlalgorithm = models.ForeignKey(MLAlgorithm,on_delete=models.CASCADE, related_name= "status")
 
 class MLRequest(models.Model):
     '''
@@ -71,4 +72,4 @@ class MLRequest(models.Model):
     response =      models.CharField(max_length=10000) 
     feedback =      models.CharField(max_length=10000, blank=True, null=True)
     created_at =    models.DateTimeField(auto_now_add=True, blank=True)
-    parent_mlalgorithm = models.ForeignKey(MLAlgorithm, on_delete=models.CASCADE)         
+    parent_mlalgorithm = models.ForeignKey(MLAlgorithm, on_delete=CASCADE)         

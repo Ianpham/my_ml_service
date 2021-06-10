@@ -25,7 +25,7 @@ class MLTests(TestCase):
             "PaperlessBilling":"Yes",
             "PaymentMethod":"Electronic check",
             "MonthlyCharges":400,
-            "TotalCharges": 30000,
+            "TotalCharges": 30000
         }
 
         my_alg = Logit_Classifier()
