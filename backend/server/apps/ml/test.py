@@ -1,5 +1,6 @@
 from django.test import TestCase
 from apps.ml.ChurnClassifier.logit import Logit_Classifier
+from apps.ml.ChurnClassifier.RandomForest import RandomForest_Classifier
 from apps.ml.registry import MLRegistry
 import inspect
 
@@ -53,3 +54,34 @@ class MLTests(TestCase):
                     algorithm_description, algorithm_code)
         # there should be one endpoint available
         self.assertEqual(len(registry.endpoints), 1)
+
+    def test_randomforest_algorithm(self):
+        input_data = {
+        "customerID":290865,
+        "gender":"Female",
+        "SeniorCitizen":1,
+        "Partner":"Yes",
+        "Dependents":"No",
+        "tenure":0,
+        "PhoneService":"Yes",
+        "MultipleLines":"Yes",
+        "InternetService":"DSL",
+        "OnlineSecurity":"Yes",
+        "OnlineBackup":"Yes",
+        "DeviceProtection":"Yes",
+        "TechSupport":"Yes",
+        "StreamingTV":"Yes",
+        "StreamingMovies":"Yes",
+        "Contract":"One year",
+        "PaperlessBilling":"Yes",
+        "PaymentMethod":"Electronic check",
+        "MonthlyCharges":400,
+        "TotalCharges": 30000
+        }
+
+        my_alg = RandomForest_Classifier()
+        response = my_alg.compute_prediction(input_data)
+        print(response)
+        self.assertEqual('OK', response['status'])
+        self.assertTrue('label' in response)
+        self.assertEqual('No Churn', response['label'])

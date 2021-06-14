@@ -19,6 +19,7 @@ application = get_wsgi_application()
 # ML Registry Lưu ý đường dẫn server.apps có cần không vì server cùng chung level vs apps
 import inspect
 from apps.ml.ChurnClassifier.logit import Logit_Classifier
+from apps.ml.ChurnClassifier.RandomForest import RandomForest_Classifier
 from apps.ml.registry import MLRegistry
 
 try:
@@ -36,5 +37,17 @@ try:
                             algorithm_description = "Logistic Classifier with simple pre- and post-processing",
                             algorithm_code = inspect.getsource(Logit_Classifier))
 
+    # random forest classifier
+    rf = RandomForest_Classifier()
+
+    # add to registry
+    registry.add_algorithm(endpoint_name = "ChurnClassifier",
+                        algorithm_object = rf,
+                        algorithm_name = "RandomForest",
+                        algorithm_status = "testing",
+                        algorithm_version = "0.0.1",
+                        owner = "Ian",
+                        algorithm_description = "Random Forest Classifier with simple pre- and post-processing",
+                        algorithm_code = inspect.getsource(RandomForest_Classifier))
 except Exception as e:
     print("Exception while loading the algorithms to the registry,", str(e))
