@@ -1,2 +1,1 @@
-# my_ml_service
-For testing Rest API with ML
+#### Churn Classification with Rest API #####
